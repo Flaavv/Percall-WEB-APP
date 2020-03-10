@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+<br><br>
+<br><br>
+
+<div class="container">
+	   <div class="panel panel-info">
+      <div class="panel-heading">Confirmation</div>
+      <div class="panel-body">
+      		
+      		<div class="form-groupe">
+      		<label>Id : </label>
+      		<label th:text="${collaborators.id}"></label>
+      		</div><br><br>
+      		<div class="form-groupe">
+      		<label>Name : </label>
+      		<label th:text="${collaborators.name}"></label>
+      		</div><br><br>
+      		<div class="form-groupe">
+      		<label>First name : </label>
+      		<label th:text="${collaborators.fname}"></label>
+      		</div><br><br>
+      
+      </div>
+    
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a th:href="@{index}">Back to the list</a><br><br>
+    </div>
+</div>
+
+
+
+</body>
+</html>

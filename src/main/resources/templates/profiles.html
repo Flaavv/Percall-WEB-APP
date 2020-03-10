@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Percall's collaborators profile</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2></h2>
+<select class="form-control" th:object="${collaborators}" name="profil" th:value= "${profil}" > 
+     <option th:each ="c:${listcollab}"  th:text="${c.name}"></option><br><br>
+	</select><br><br>
+<br>
+ <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+<div class="container">
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>First name</th>
+		</tr>
+	</thead>
+		<tbody>
+	
+		
+		
+		
+		<td th:each="c:${listCollab}"> </td> 
+			<td th:value="${listCollab}" th:text="${c.listCollab}"></td>
+		
+			 
+			
+			<!-- <td   th:text="${collaborators.name}"></td>
+
+			<td  th:text="${level.level}"></td>  -->
+			
+			
+			
+			
+		</tr>
+		</tbody>
+	
+</table>
+</div>
+
+
+
+</body>
+</html>

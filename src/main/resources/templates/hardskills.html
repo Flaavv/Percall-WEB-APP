@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<title>List of Hardskills</title>
+</head>
+<body>
+<div class = "container">
+<br><br><br>
+<h3>List of hardskills</h3>
+</div>
+<br><hr><br>
+<div class="container">
+<a th:href="@{formHS}">+ add a hardskill</a>
+</div>
+<br><hr><br><br>
+ 
+
+
+
+<div class ="container">
+	<form th:action="@{hardskills}" method="get">
+	<label>Search a hardskill:</label>
+	<input type = "text" name="keyWord" th:value ="${keyWord}"/> 
+	<button class="btn btn-primary">Send</button>
+	</form>
+ 
+<br><br>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			
+	
+		</tr>
+	</thead>
+		<tbody>
+			<tr th:each="h:${listHardSkills}">
+			<td th:text="${h.id}"></td>
+			<td th:text="${h.name}"></td>
+			<td><a onclick="return confirm('Are you sure ?')" th:href="@{deleteHS(id=${h.id})}">Delete</a></td>
+			
+		</tr>
+		</tbody>
+	
+</table>
+</div>
+
+<!-- Pour faire de la pagination, 5 résultats par bloc -->
+<!--  
+<div class="container">
+<ul class="nav justify-content-center"> 
+	<li th:class= "${pageCourante}==${status.hardskills}?'active':' '" th:each="p,status:${pages}">
+	<a class="nav-link active" th:href="@{hardskills(pages=${status.hardskills},size=${size})}" th:text="${status.hardskills}"></a>
+	</li>
+</ul>
+</div>
+-->
+</body>
+</html>

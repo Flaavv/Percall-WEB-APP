@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8"/>
+<!--  <link rel="stylesheet" type="text/css" href="/style.css" /> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+<a class="navbar-brand" th:href="@{home}">Back home</a>
+</li> &nbsp;&nbsp;&nbsp;
+ <li class="nav-item">
+<a class="navbar-brand" th:href="@{formEntity}">Add a collaborater</a>
+</li>&nbsp;&nbsp;&nbsp;
+<li class="nav-item">
+<a class="navbar-brand" th:href="@{search}">Find a collaborator</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</li>
+
+ <form th:action ="@{index}" class="form-inline my-2 my-lg-0" method="post">
+      <input name="keyWord" th:value ="${keyWord}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<form th:action ="@{profiles}" class="form-inline my-2 my-lg-0" method="get">
+      <input name="profil" th:value ="${profil}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+</nav>
+
+<title>Collaborateurs Percall</title>
+</head>
+<body>
+
+
+<div class="jumbotron jumbotron-fluid">
+<div class = "container">
+<h1 class="display-4" style = "text-align: center;">List of Percall collaborators</h3><br><hr>
+</div>
+</div>
+<!--  <select class="form-control" th:object="${collaborators}" name="profil" th:value= "${profil}" > 
+     <option th:each ="c:${listcollab}"  th:text="${c.name}"></option><br><br>
+	</select><br><br> -->
+<br>
+<div class="container">
+<table class="table table-bordered table-striped" style="td: text-color = black;">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>First Name</th>
+			
+			
+	
+		</tr>
+	</thead>
+		<tbody>
+			<tr th:each="c:${listCollab}">
+			
+			<td th:text="${c.name}"></td>
+			<td th:text="${c.fname}"></td>
+			<td><a onclick="return confirm('Are you sure ?')" th:href="@{delete(id=${c.id})}">Delete</a></td>
+		</tr>
+		</tbody>
+	
+</table>
+</div>
+<div class="container">
+<ul class="nav justify-content-center"> 
+	<li th:class= "${pageCourante}==${status.index}?'active':' '" th:each="p,status:${pages}">
+	<a class="nav-link active" th:href="@{index(pages=${status.index},size=${size})}" th:text="${status.index}"></a>
+	</li>
+</ul>
+</div>
+</body>
+</html>

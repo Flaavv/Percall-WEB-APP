@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+	
+
+<br><br><br>
+
+ <div class="container">
+  <div class="jumbotron jumbotron-fluid">
+ 
+    <h1 class="display-4">Add a hardskill</h1>
+    </div>
+    </div>
+       <div class="container">
+   <div class="panel panel-info">
+      <div class="panel-heading">Please enter a hardskill to add</div><br><br>
+      <div class="panel-body">
+      
+      
+      		<form th:action="@{saveHS}" method='post'>
+  <div class="row">
+    <div class="col">
+     
+     
+    <div class="col">
+     <input type="text" class="form-control" placeholder="Hardskill name" name="name" th:value="${hardskill.name}" >
+      <br><br>
+    </div>
+  </div> 
+ &nbsp;&nbsp;&nbsp; <button type="submit" class="btn btn-primary">Save</button>
+</form>
+      </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

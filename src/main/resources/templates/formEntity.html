@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<title>Form</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+<a class="navbar-brand" th:href="@{home}">Back home</a>
+</li> &nbsp;&nbsp;&nbsp;
+ <li class="nav-item">
+<a class="navbar-brand" th:href="@{formEntity}">Add a skill</a>
+</li>&nbsp;&nbsp;&nbsp;
+<li class="nav-item">
+<a class="navbar-brand" th:href="@{search}">Find a collaborator</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</li>
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+<a class="navbar-brand" th:href="@{index}">List of collaborators</a>
+</li> &nbsp;&nbsp;&nbsp;
+ <form th:action ="@{index}" class="form-inline my-2 my-lg-0" method="post">
+      <input name="keyWord" th:value ="${keyWord}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+</nav>
+
+
+ <div class="jumbotron jumbotron-fluid">
+ <div class="container">
+ 
+ 
+    <h2 class="display-4" style="text-align: center;">Add a collaborator</h2><br><hr>
+    </div>
+    </div>
+    &nbsp;&nbsp;
+       <div class="container">
+   <div class="card bg-light mb-3" style="max-width: 34rem;">
+      <div class="card-header">Please enter a name and a first name</div><br><br>
+      <div class="card-body">
+      <form  th:action="@{save}" method='post'>
+  <div class="row">
+   <div class="col-md">
+     <input type="text" class="form-control" placeholder="First name" name="Collaborators.fname" th:object="${collaborators}" th:value="${fname}"><br><br><br><br>
+    </div> 
+   <div class="col-md">
+      <input type="text" class="form-control" placeholder="Last name" name="Collaborators.name"  th:object="${collaborators}" th:value="${name}" >
+      
+    </div> 
+    </div>
+    </div>
+    </div><br>
+     <div class="card bg-light mb-3" style="max-width: 34rem;">
+      <div class="card-header">Choose a language and a level</div><br><br>
+      <div class="card-body">
+      <div class="col-md">
+    <label>Select a language</label>&nbsp;&nbsp;
+    <select  th:object="${languages}" name="Languages.name"> 
+     <option th:each ="c:${LanguagesList}" th:value="${c.name}" th:text="${c.name}"></option>
+    </select><br><br></div>
+   <hr>
+   <div class="col-md">
+    <label>Select a level</label>&nbsp;&nbsp;
+    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect"  th:object="${level}" name="Level.level" th:value="${level}"> 
+    
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+ 	 </select>
+ 	 <br><br><br></div>
+ 	 
+</div>
+</div>
+   
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+      </div>
+      </div>
+    
+
+</body>
+</html>

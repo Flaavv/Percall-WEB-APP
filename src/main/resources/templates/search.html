@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+<a class="navbar-brand" th:href="@{home}">Back home</a>
+</li> &nbsp;&nbsp;&nbsp;
+ <li class="nav-item">
+<a class="navbar-brand" th:href="@{formEntity}">Add a collaborater</a>
+</li>&nbsp;&nbsp;&nbsp;
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+<a class="navbar-brand" th:href="@{index}">List of collaborators</a>
+</li> &nbsp;&nbsp;&nbsp;
+ <form th:action ="@{index}" class="form-inline my-2 my-lg-0" method="post">
+      <input name="keyWord" th:value ="${keyWord}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    
+     <form th:action ="@{profiles}" class="form-inline my-2 my-lg-0" method="get">
+      <input name="profil" th:value ="${profil}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+</nav>
+
+
+
+
+
+<title>Insert title here</title>
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid">
+<div class="container">
+<h2 class="display-4" style="text-align: center;">Search a collaborator</h2><br><hr><br>
+ </div>
+</div>
+
+
+
+	
+	
+	
+<div class = "container">
+<form th:action="@{search}" method="get">
+<div class="card-group mb-5">
+<div class="card-deck">
+<div class="card">
+<div class="card-header">Select a language:</div>
+<div class="card-body">
+ 
+   
+	<select class="form-control" th:object="${languages}" name="keyLanguages" th:value= "${keyLanguages}" > 
+     <option th:each ="c:${LanguagesList}" th:value="${c.name}" th:text="${c.name}"></option><br><br>
+	</select><br><br>
+	
+<label>Select a level:</label>
+
+	<select class="form-control" name="keyLevel1" th:value="${keyLevel}">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select><br><br>
+</div>
+</div>
+</div>
+	
+	
+	<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+	<div class="card-deck">
+<div class="card">
+<div class="card-header">Select a hardskill</div>
+<div class="card-body">
+	
+   <select class="form-control" th:object="${hardskills}" name="keyHS" th:value= "${keyHS}" > 
+     <option th:each ="c:${HardskillsList}" th:value="${c.name}" th:text="${c.name}"></option><br><br>
+	</select><br><br>
+	
+<label>Select a level:</label>
+<select class="form-control" name="keyLevel2" th:value="${keyLevel2}">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select><br><br>
+	
+	
+</div>
+</div>
+</div>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<div class="card-deck">
+<div class="card">
+<div class="card-header">Select a framework</div>
+<div class="card-body">
+
+   
+   <select class="form-control" th:object="${frameworks}" name="keyFram" th:value= "${keyFram}" > 
+     <option th:each ="c:${FramList}" th:value="${c.name}" th:text="${c.name}"></option><br><br>
+	</select><br><br>
+	
+<label>Select a level:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+<select class="form-control" name="keyLevel3" th:value="${keyLevel3}">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select><br><br>
+	
+</div>
+</div>
+</div>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+
+</div>	
+	<button type = "submit" class ="btn btn-primary">Send</button><br><br>
+
+</div>
+		
+	</form>
+	<br><hr>
+	
+	
+	
+	
+	
+	
+	<div class="container">
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>First name</th>
+		</tr>
+	</thead>
+		<tbody>
+			<tr th:each="c:${listCollab}">
+			<td th:value = "${name}" th:text="${c.collaborators.name}"></td>
+			<td th:text="${c.collaborators.fname}"></td>
+			
+		</tr>
+		</tbody>
+	
+</table>
+</div>
+	
+</body>
+</html>
