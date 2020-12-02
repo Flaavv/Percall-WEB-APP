@@ -1,5 +1,7 @@
 package fr.percall.skills;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import fr.percall.collab.Collaborators;
 @ComponentScan(basePackageClasses = Collaborators.class)
 @ComponentScan(basePackageClasses = Level.class)
 @ComponentScan(basePackageClasses = Hardskills.class)
-public class CollabHardSkillsLevel {
+public class CollabHardSkillsLevel implements Serializable {
 
 	
 
@@ -26,13 +28,13 @@ public class CollabHardSkillsLevel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Collaborators collaborators;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Hardskills hardskills;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Level level;
 	

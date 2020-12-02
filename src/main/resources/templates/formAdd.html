@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<meta charset="utf-8>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -28,7 +28,8 @@
       		<form th:action="@{save}" method='post'>
   <div class="row">
     <div class="col">
-      <input type="text" class="form-control" placeholder="First name" name="fname" th:value="${collaborators.fname}"><br><br><br>
+      <input type="text" class="form-control" placeholder="First name" name="fname" 
+      th:value="${collaborators.fname}"><br><br><br>
     </div>
     <div class="col">
       <input type="text" class="form-control" placeholder="Last name" name="name" th:value="${collaborators.name}" >

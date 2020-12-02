@@ -55,20 +55,34 @@ public interface CollabLangLevelRepository extends JpaRepository<CollabLanguages
 	
 	
 	
-	@Query(value = "select * from collaborators c, collab_languages_level cll, languages l, hardskills h, collab_hardskills_level chl, frameworks f, collab_fram_level cfl, level lv1, level lv2, level lv3\r\n" + 
-			"		where c.id=cll.collaborators_id and cll.languages_id=l.id and cll.level_id=lv1.id and lv1.level >= :level.level1 and l.name= :languages.name\r\n " +
-			"		and c.id=chl.collaborators_id and chl.hardskills_id=h.id and chl.level_id=lv2.id and lv2.level >= :level.level2 and h.name= :hardskills.name\r\n "+
-			"		and c.id=cfl.collaborators_id and cfl.frameworks_id=f.id and cfl.level_id=lv3.id and lv3.level >= :level.level3 and f.name= :frameworks.name\r\n ", nativeQuery = true)
-	public Page<CollabLanguagesLevel> findBy2Lang1F(@Param("languages.name")String lang1, 
+	@Query(value = "select * from collaborators c, collab_languages_level cll, languages l, hardskills h, collab_hardskills_level chl, "
+			+ "frameworks f, collab_fram_level cfl, level lv1, level lv2, level lv3\r\n" + 
+			"		where c.id=cll.collaborators_id and cll.languages_id=l.id and cll.level_id=lv1.id and lv1.level >= :level.level1 "
+			+ "and l.name= :languages.name\r\n " +
+			"		and c.id=chl.collaborators_id and chl.hardskills_id=h.id and chl.level_id=lv2.id and lv2.level >= :level.level2 "
+			+ "and h.name= :hardskills.name\r\n "+
+			"		and c.id=cfl.collaborators_id and cfl.frameworks_id=f.id and cfl.level_id=lv3.id and lv3.level >= :level.level3 "
+			+ "and f.name= :frameworks.name\r\n ", nativeQuery = true)
+	List<CollabLanguagesLevel> findBy2Lang1F(@Param("languages.name")String lang1, 
 													@Param("level.level1")int lvl1, 
 													@Param("hardskills.name")String hs, 
 													@Param("level.level2")int lvl2,
 													@Param("frameworks.name")String fram, 
-													@Param("level.level3")int lvl3,Pageable page);
+													@Param("level.level3")int lvl3); 
 	
-	@Query(value = "select * from collaborators c, languages l, frameworks f, hardskills h, collab_languages_level cll, collab_hardskills_level chl, collab_fram_level cfl, level lv1, level lv2, level lv3\r\n" + 
-			"where c.id = cll.collaborators_id and cll.level_id=lv1.id and c.id=chl.collaborators_id and chl.level_id=lv2.id and c.id=cfl.collaborators_id and cfl.level_id=lv3.id and cll.languages_id=l.id and chl.hardskills_id=h.id and cfl.frameworks_id=f.id and\r\n" + 
-			"c.name = :name"
-			+ " ", nativeQuery = true)
-	Page<CollabLanguagesLevel> profil(@Param("name")String name, Pageable page);
-	}
+	@Query(value = "select distinct l.name\r\n" + 
+			"from collaborators c, languages l, level lv, collab_languages_level cll\r\n" + 
+			"where c.id = cll.collaborators_id and l.id = cll.languages_id and lv.id = cll.level_id\r\n" + 
+			"and c.name = :name", nativeQuery = true)
+	List<CollabLanguagesLevel> profil(@Param("name")String name);
+	
+	@Query(value = "select distinct c.name, c.fname from collaborators c, collab_languages_level cll, "
+			+ "languages l, hardskills h, collab_hardskills_level chl, "
+			+ "frameworks f, collab_fram_level cfl, level lv1 "
+			+ "where c.id=cll.collaborators_id and cll.languages_id=l.id "
+			+ "and cll.level_id=lv1.id and lv1.level >= 1 and l.name= :lang", nativeQuery = true)
+	List<CollabLanguagesLevel> lang(@Param("lang")String lang);
+	
+	
+}
+	

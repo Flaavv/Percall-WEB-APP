@@ -40,7 +40,7 @@ public class CollabController {
 			@RequestParam(name="size", defaultValue ="30")int s, 
 			@RequestParam(name="keyWord", defaultValue = "") String name){
 		
-		List<CollabLanguagesLevel> collab = cllRepo.findAll();
+		Page<Collaborators> collab = collabRepo.chercher("%"+name+"%", PageRequest.of(p, s));
 		
 		model.addAttribute("listCollab", collab);
 		

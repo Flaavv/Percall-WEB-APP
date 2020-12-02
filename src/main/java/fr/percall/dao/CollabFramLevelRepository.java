@@ -11,7 +11,11 @@ import fr.percall.skills.Frameworks;
 
 public interface CollabFramLevelRepository extends JpaRepository<CollabFramLevel, Integer> {
 		
-	@Query(value = "select * from collab_fram_level cfl, collaborators c, frameworks f where c.id = cfl.collaborators_id and"
+	@Query(value = "select distinct f.name from collab_fram_level cfl, collaborators c, frameworks f where c.id = cfl.collaborators_id and"
 			+ " f.id = cfl.frameworks_id and c.name = :name", nativeQuery = true)	
 	List<CollabFramLevel> cfl(@Param("name")String name);
+	
+	@Query(value = "select distinct c.name, c.fname from collab_fram_level cfl, collaborators c, frameworks f where c.id = cfl.collaborators_id and"
+			+ " f.id = cfl.frameworks_id and f.name = :fram", nativeQuery = true)	
+	List<CollabFramLevel> fram(@Param("fram")String fram);
 }

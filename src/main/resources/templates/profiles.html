@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2></h2>
-<select class="form-control" th:object="${collaborators}" name="profil" th:value= "${profil}" > 
+<select class="form-control" th:object="${collaborators}" name="profil" th:value= "${listCollab}" > 
      <option th:each ="c:${listcollab}"  th:text="${c.name}"></option><br><br>
 	</select><br><br>
 <br>
@@ -17,22 +17,33 @@
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>First name</th>
+			<th>Languages</th>
+			<th>Level</th>
 		</tr>
-	</thead>
 		<tbody>
 	
 		
+		<tr th:each="c:${list}"> 
+		 <td th:object="${Languages}" th:text="${c.languages.name}"/>
+		 <td th:object="${Level}" th:text="${c.level.level}"/>
+		 <tr th:each="c:${list2}"> 
+		 <td th:object="${Hardskills}" th:text="${c.hardskills.name}"/>
+		 <td th:object="${Level}" th:text="${c.level.level}"/>
+		  <tr th:each="c:${list3}"> 
+		 <td th:object="${Frameworks}" th:text="${c.frameworks.name}"/>
+		 <td th:object="${Level}" th:text="${c.level.level}"/>
+            <!--  <td th:text="${c.languages_level}" /> -->
 		
 		
-		<td th:each="c:${listCollab}"> </td> 
-			<td th:value="${listCollab}" th:text="${c.listCollab}"></td>
+			
+			
+			
+			
 		
 			 
 			
 			<!-- <td   th:text="${collaborators.name}"></td>
-
+<td th:each="c:${listcollab}"> </td>  <td  th:text="${c.Languages.name}"></td>  th:object=${collab_languages_level} th:field="${languages}" 
 			<td  th:text="${level.level}"></td>  -->
 			
 			

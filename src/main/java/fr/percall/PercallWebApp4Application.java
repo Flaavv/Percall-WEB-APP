@@ -6,9 +6,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 
 import fr.percall.collab.Collaborators;
+import fr.percall.dao.CollabFramLevelRepository;
+import fr.percall.dao.CollabHardskillsLevelRepository;
 import fr.percall.dao.CollabLangLevelRepository;
 import fr.percall.dao.CollabRepository;
+import fr.percall.skills.CollabFramLevel;
+import fr.percall.skills.CollabHardSkillsLevel;
 import fr.percall.skills.CollabLanguagesLevel;
+import fr.percall.skills.Frameworks;
+import fr.percall.skills.Hardskills;
 import fr.percall.skills.Languages;
 import fr.percall.skills.Level;
 
@@ -19,12 +25,11 @@ public class PercallWebApp4Application {
 		
 		ApplicationContext ctx = SpringApplication.run(PercallWebApp4Application.class, args);
 		 
-		/** CollabLangLevelRepository clRepo = ctx.getBean(CollabLangLevelRepository.class);
+		 /**CollabRepository clRepo = ctx.getBean(CollabRepository.class);
 		 Collaborators c = new Collaborators("Zverev", "Alexander");
-		 Languages l = new Languages("SQL");
-		 Level lvl = new Level(3);
-		 clRepo.save(new CollabLanguagesLevel(c, l, lvl)); */
 		
+		 clRepo.save(c); 
+	*/
 	}
 
 }

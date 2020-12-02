@@ -1,11 +1,14 @@
 package fr.percall.skills;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 
@@ -23,20 +26,20 @@ import fr.percall.collab.Collaborators;
 @ComponentScan(basePackageClasses = Collaborators.class)
 @ComponentScan(basePackageClasses = Level.class)
 @ComponentScan(basePackageClasses = Languages.class)
-public class CollabLanguagesLevel {
+public class CollabLanguagesLevel implements Serializable {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Collaborators collaborators;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Languages languages;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Level level;
 	
@@ -48,14 +51,14 @@ public class CollabLanguagesLevel {
 		this.languages = languages;
 		this.level = level;
 	}
-	@Bean
+	
 	public Collaborators getCollaborators() {
 		return collaborators;
 	}
 	public void setCollaborators(Collaborators collaborators) {
 		this.collaborators = collaborators;
 	}
-	@Bean
+	
 	public Languages getLanguages() {
 		return languages;
 	}

@@ -20,7 +20,7 @@
 <a class="navbar-brand" th:href="@{search}">Find a collaborator</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </li>
 
- <form th:action ="@{index}" class="form-inline my-2 my-lg-0" method="post">
+ <form th:action ="@{index}" class="form-inline my-2 my-lg-0" method="get">
       <input name="keyWord" th:value ="${keyWord}" class="form-control mr-sm-2" type="text" placeholder="Search someone">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -60,8 +60,8 @@
 		<tbody>
 			<tr th:each="c:${listCollab}">
 			
-			<td th:text="${c.name}"></td>
-			<td th:text="${c.fname}"></td>
+			<td th:href ="@{profiles}" th:text="${c.name}"></td>
+			<td th:href ="@{profiles}" th:text="${c.fname}"></td>
 			<td><a onclick="return confirm('Are you sure ?')" th:href="@{delete(id=${c.id})}">Delete</a></td>
 		</tr>
 		</tbody>

@@ -1,7 +1,10 @@
 package fr.percall.controller;
 
+import java.lang.annotation.Repeatable;
 import java.util.Collection;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,19 +42,19 @@ public class CollabLangLevelController {
 	@Autowired
 	private CollabLangLevelRepository clbRepo;
 	@Autowired
-	CollabRepository collabRepo;
+	private CollabRepository collabRepo;
 	@Autowired
-	LevelRepository lvlRepo;
+	private LevelRepository lvlRepo;
 	@Autowired
-	LanguagesRepository lgRepo;
+	private LanguagesRepository lgRepo;
 	@Autowired
-	HardskillsRepository hskRepo;
+	private HardskillsRepository hskRepo;
 	@Autowired
-	FrameworksRepository framRepo;
+	private FrameworksRepository framRepo;
 	@Autowired
-	CollabFramLevelRepository cflRepo;
+	private CollabFramLevelRepository cflRepo;
 	@Autowired
-	CollabHardskillsLevelRepository chlRepo;
+	private CollabHardskillsLevelRepository chlRepo;
 
 	@RequestMapping(value="/cbl")
 	public String collab(Model model, 
@@ -163,7 +169,7 @@ public class CollabLangLevelController {
 	@RequestMapping(value = "/search")
 	public String search(Model model,
 			@RequestParam(name="pages", defaultValue = "0")int p,
-			@RequestParam(name="size", defaultValue = "14")int s,
+			@RequestParam(name="size", defaultValue = "50")int s,
 			@RequestParam(name="keyLanguages", defaultValue = "")String lang1,
 			@RequestParam(name="keyLevel1", defaultValue = "0")int lvl1,
 			@RequestParam(name="keyHS", defaultValue = "")String hs,
@@ -171,16 +177,21 @@ public class CollabLangLevelController {
 			@RequestParam(name="keyFram", defaultValue = "")String fram,
 			@RequestParam(name="keyLevel3", defaultValue = "0")int lvl3
 			){
-		Page<CollabLanguagesLevel> search = clbRepo.findBy2Lang1F(lang1, lvl1, hs, lvl2, fram, lvl3, PageRequest.of(p, s));	
+		List<CollabLanguagesLevel> search = clbRepo.findBy2Lang1F(lang1, lvl1, hs, lvl2, fram, lvl3);	
 		List<Languages> lg = lgRepo.findAll();
 		List<Hardskills> hsk = hskRepo.findAll();
 		List<Frameworks> fra = framRepo.findAll();
-		model.addAttribute("listCollab", search.getContent());
-		int[] pages = new int[search.getTotalPages()];
+		List<CollabFramLevel> cfl = cflRepo.findAll();
+		List<CollabHardSkillsLevel> chl = chlRepo.findAll();
+		List<CollabLanguagesLevel> cll = clbRepo.findAll();
+		
+		model.addAttribute("CLL", cll);
+		model.addAttribute("CFL", cfl);
+		model.addAttribute("CHL", chl);
 		model.addAttribute("LanguagesList", lg);
 		model.addAttribute("HardskillsList", hsk);
 		model.addAttribute("FramList", fra);
-		model.addAttribute("pages", pages);
+		
 		model.addAttribute("size", s);
 		model.addAttribute("pageCourante", p);
 		model.addAttribute("keyLanguages", lang1);
@@ -196,14 +207,15 @@ public class CollabLangLevelController {
 	
 	@RequestMapping(value = "/profiles")
 	public String prof(Model model,
-			@RequestParam(name="pages", defaultValue = "0")int p,
-			@RequestParam(name="size", defaultValue = "14")int s,
 			@RequestParam(name="profil", defaultValue = "")String name) {
-			Page<CollabLanguagesLevel> x = clbRepo.profil("%"+name+"%", PageRequest.of(p, s));
-			model.addAttribute("listCollab", x.getContent());
-			int[] pages = new int[x.getTotalPages()];
-			List<Collaborators> c = collabRepo.findAll();
-			model.addAttribute("listcollab", c);
+			List<CollabHardSkillsLevel> y = chlRepo.chl(name);
+			List<CollabLanguagesLevel> x = clbRepo.profil(name);
+			List<CollabFramLevel> z = cflRepo.cfl(name);
+			model.addAttribute("list2", y);
+			model.addAttribute("list", x);
+			model.addAttribute("list3", z);
+			model.addAttribute("profil", name);
+			model.addAttribute("profil", name);
 			model.addAttribute("profil", name);
 			return "/profiles";
 	}
@@ -212,22 +224,47 @@ public class CollabLangLevelController {
 	
 	
 	@RequestMapping(value = "/formEntity", method=RequestMethod.GET)
-	public String save(Model model) {
+	public String savee(Model model) {
+		
+		List<Hardskills> h = hskRepo.findAll();
+		List<Frameworks> f = framRepo.findAll();
 		List<Languages> lg = lgRepo.findAll();
 		List<Level> lv = lvlRepo.findAll();
+		model.addAttribute("HardskillsList", h);
+		model.addAttribute("FramList", f);
 		model.addAttribute("LanguagesList", lg);
 		model.addAttribute("LevelList", lv);
-		model.addAttribute("clb", new CollabLanguagesLevel());
 		
 		return "formEntity";
 	}
-	 
-	@RequestMapping(value = "/save", method=RequestMethod.POST)
-	public String save(Model model, CollabLanguagesLevel cll, Collaborators co, Languages lg, Level lv) {
-		clbRepo.save(cll);
+	
+	@RequestMapping(value = "/form", method=RequestMethod.POST)
+	public String save(Model model, Collaborators c) {
+		collabRepo.save(c);
+		return "form";
+	}
+	
+	@PostMapping(value= "/saveEnt")
+	public String saveEnt(Model model, Collaborators c, CollabHardSkillsLevel h, 
+									   CollabLanguagesLevel f, CollabFramLevel l) {
+		collabRepo.save(c);
+		cflRepo.save(l);
+		chlRepo.save(h);
+		clbRepo.save(f);
+		
 		return "ConfirmationEntity";
 	}
 	
-
+	/**
+	@RequestMapping(value = "/save", method=RequestMethod.POST)
+	public String save(Model model, CollabHardSkillsLevel chl, CollabFramLevel cfl, 
+			CollabLanguagesLevel cll, Level lv) {
+		chlRepo.save(chl);
+		cflRepo.save(cfl);
+		clbRepo.save(cll);
+		return "ConfirmationEntity";
+	} 
+	
+*/
 	
 }

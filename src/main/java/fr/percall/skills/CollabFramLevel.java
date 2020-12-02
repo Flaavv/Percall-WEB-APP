@@ -29,13 +29,13 @@ public class CollabFramLevel implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Collaborators collaborators;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Frameworks frameworks;
-	@Autowired
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Level level;
 	

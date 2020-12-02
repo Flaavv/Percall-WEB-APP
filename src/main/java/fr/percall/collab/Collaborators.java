@@ -18,19 +18,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import fr.percall.skills.CollabLanguagesLevel;
 import fr.percall.skills.Languages;
 
 
 
 
 @Entity
-@Component
 public class Collaborators implements Serializable{
 
 	private static final long serialVersionUID = 136033381397483968L;
@@ -42,6 +43,9 @@ public class Collaborators implements Serializable{
 	
 	@Column(name = "fname")
 	String firstName;
+	
+	
+	
 	
 	
 	
